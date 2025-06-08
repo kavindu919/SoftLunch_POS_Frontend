@@ -8,7 +8,7 @@ import { AiOutlineLogout } from "react-icons/ai";
 const SideBar = () => {
   return (
     <aside className="flex w-16 flex-col justify-between px-2 py-5 sm:w-8 md:w-60 lg:w-72">
-      <div className="flex h-auto flex-row items-center justify-between rounded-xl bg-gray-200 p-3">
+      <div className="bg-shade flex h-auto flex-row items-center justify-between rounded-xl p-3">
         <div className="flex flex-row items-center justify-between gap-4">
           <img
             src="https://picsum.photos/200"
@@ -31,7 +31,7 @@ const SideBar = () => {
               href="/"
               className="group flex items-center gap-2 p-3 font-semibold active:bg-[#00ADB5]"
             >
-              <div className="rounded-full bg-gray-200 p-3 active:bg-[#EEEEEE]">
+              <div className="bg-shade rounded-full p-3 active:bg-[#EEEEEE]">
                 <RxDashboard className="text-primarytext text-2xl" />
               </div>
               <span className="text-primarytext text-base group-active:text-[#EEEEEE]">
@@ -44,7 +44,7 @@ const SideBar = () => {
               href="/"
               className="group active:bg-theme flex items-center gap-2 p-3 font-semibold"
             >
-              <div className="rounded-full bg-gray-200 p-3 active:bg-[#EEEEEE]">
+              <div className="bg-shade rounded-full p-3 active:bg-[#EEEEEE]">
                 <IoPeopleCircleOutline className="text-primarytext text-2xl" />
               </div>
               <span className="text-primarytext text-base group-active:text-[#EEEEEE]">
@@ -57,7 +57,7 @@ const SideBar = () => {
               href="/"
               className="group flex items-center gap-2 p-3 font-semibold active:bg-[#00ADB5]"
             >
-              <div className="rounded-full bg-gray-200 p-3 active:bg-[#EEEEEE]">
+              <div className="bg-shade rounded-full p-3 active:bg-[#EEEEEE]">
                 <RiBillLine className="text-primarytext text-2xl" />
               </div>
               <span className="text-primarytext text-base group-active:text-[#EEEEEE]">
@@ -70,7 +70,7 @@ const SideBar = () => {
               href="/"
               className="group flex items-center gap-2 p-3 font-semibold active:bg-[#00ADB5]"
             >
-              <div className="rounded-full bg-gray-200 p-3 active:bg-[#EEEEEE]">
+              <div className="bg-shade rounded-full p-3 active:bg-[#EEEEEE]">
                 <LuWarehouse className="text-primarytext text-2xl" />
               </div>
               <span className="text-primarytext text-base group-active:text-[#EEEEEE]">
@@ -80,7 +80,7 @@ const SideBar = () => {
           </li>
         </ul>
       </div>
-      <div className="flex flex-row items-center justify-between rounded-xl bg-gray-200 p-4">
+      <div className="bg-shade flex flex-row items-center justify-between rounded-xl p-4">
         <span className="text-primarytext text-base font-normal">Log Out</span>
         <AiOutlineLogout className="text-primarytext text-2xl" />
       </div>

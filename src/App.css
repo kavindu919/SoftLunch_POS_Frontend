@@ -4,11 +4,13 @@
 html, body, #root {
   height: 100%;
   width: 100%;
-  background-color: #EEEEEE;
+  background-color: #fafafa
+;
 }
 
 @theme {
   --color-primarytext: #222831;
   --color-secondarytext: #393E46;
   --color-theme:#00ADB5;
+  --color-shade:#f2f2f2
 }
