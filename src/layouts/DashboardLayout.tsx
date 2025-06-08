@@ -1,5 +1,12 @@
+import SideBar from "../components/SideBar";
+
 const DashboardLayout = () => {
-  return <div>Hellow World</div>;
+  return (
+    <div className="flex h-full w-full flex-row">
+      <SideBar />
+      <div>main</div>
+    </div>
+  );
 };
 
 export default DashboardLayout;

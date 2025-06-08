@@ -4,7 +4,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 const AppRoute = () => {
   return (
     <Routes>
-      <Route path="/dashboard" element={<DashboardLayout />}></Route>
+      <Route path="/" element={<DashboardLayout />}></Route>
     </Routes>
   );
 };
