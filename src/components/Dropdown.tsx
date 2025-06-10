@@ -15,7 +15,7 @@ const Dropdown = ({ title, element }: DropdownProps) => {
     <div className="text-primarytext relative w-full max-w-48">
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex w-full cursor-pointer appearance-none items-center justify-around gap-3 rounded-2xl border-2 border-gray-200 bg-white px-2 py-1 shadow-sm outline-none"
+        className="flex w-full cursor-pointer appearance-none items-center justify-around gap-3 rounded-2xl bg-white px-2 py-1 shadow-sm outline-none hover:shadow-md"
       >
         <span className="text-sm sm:text-base">{title}</span>
         <div className="bg-shade rounded-full md:p-2">

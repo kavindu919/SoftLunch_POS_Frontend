@@ -9,7 +9,7 @@ import Topselling from "../components/Topselling";
 const DashboardPage = () => {
   return (
     <>
-      <article className="flex flex-row gap-4">
+      <article className="flex flex-row justify-between">
         <Dashboardcard
           icon={<IoTrendingUpOutline className="text-primarytext text-3xl" />}
           mainHeader="Total Sales Amount"

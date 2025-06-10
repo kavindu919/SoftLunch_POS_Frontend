@@ -15,17 +15,17 @@ const Topselling = () => {
         <thead>
           <tr>
             <th className="rounded-2xl bg-white p-2 text-base font-normal">
-              <span className="inline-block w-full rounded-full border-2 border-gray-200 px-8 py-2 text-center shadow">
+              <span className="inline-block w-full rounded-full px-8 py-2 text-center shadow-sm">
                 Image
               </span>
             </th>
             <th className="rounded-2xl bg-white p-2 text-base font-normal">
-              <span className="inline-block w-full rounded-full border-2 border-gray-200 px-8 py-2 text-center shadow">
+              <span className="inline-block w-full rounded-full px-8 py-2 text-center shadow-sm">
                 Product Name
               </span>
             </th>
             <th className="rounded-2xl bg-white p-2 text-base font-normal">
-              <span className="inline-block w-full rounded-full border-2 border-gray-200 px-8 py-2 text-center shadow">
+              <span className="inline-block w-full rounded-full px-8 py-2 text-center shadow-sm">
                 Selling
               </span>
             </th>
@@ -37,7 +37,7 @@ const Topselling = () => {
               <img
                 src="https://picsum.photos/200"
                 alt="Product"
-                className="mx-auto h-16 w-16 rounded-xl bg-gray-100 p-2"
+                className="mx-auto h-16 w-16 rounded-xl bg-gray-200 p-2"
               />
             </td>
             <td className="py-4 text-center">
@@ -57,7 +57,7 @@ const Topselling = () => {
               <img
                 src="https://picsum.photos/200"
                 alt="Product"
-                className="mx-auto h-16 w-16 rounded-xl bg-gray-100 p-2"
+                className="mx-auto h-16 w-16 rounded-xl bg-gray-200 p-2"
               />
             </td>
             <td className="py-4 text-center">
@@ -77,7 +77,7 @@ const Topselling = () => {
               <img
                 src="https://picsum.photos/200"
                 alt="Product"
-                className="mx-auto h-16 w-16 rounded-xl bg-gray-100 p-2"
+                className="mx-auto h-16 w-16 rounded-xl bg-gray-200 p-2"
               />
             </td>
             <td className="py-4 text-center">
