@@ -4,6 +4,7 @@ import { BsBoxSeam } from "react-icons/bs";
 import { GoPeople } from "react-icons/go";
 import { IoCashOutline } from "react-icons/io5";
 import DashboardChart from "../components/Dashboardchart";
+import Topselling from "../components/Topselling";
 
 const DashboardPage = () => {
   return (
@@ -42,8 +43,10 @@ const DashboardPage = () => {
           percentage="12.2% ↑"
         />
       </article>
-
-      <DashboardChart />
+      <div className="mt-5 flex w-full flex-row justify-between gap-3">
+        <DashboardChart />
+        <Topselling />
+      </div>
     </>
   );
 };
