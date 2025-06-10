@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
+import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -16,7 +17,9 @@ const DashboardLayout = () => {
         isSidebaropen={sidebarOpen}
       />
 
-      <main></main>
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 };
