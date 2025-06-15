@@ -9,7 +9,7 @@ import Topselling from "../components/Topselling";
 const DashboardPage = () => {
   return (
     <>
-      <article className="flex flex-row justify-between">
+      <article className="flex flex-row justify-start gap-3">
         <Dashboardcard
           icon={<IoTrendingUpOutline className="text-primarytext text-3xl" />}
           mainHeader="Total Sales Amount"
@@ -33,6 +33,22 @@ const DashboardPage = () => {
           unit="Persons"
           stats="-5 Persons"
           percentage="02.2% "
+        />
+        <Dashboardcard
+          icon={<IoCashOutline className="text-primarytext text-3xl" />}
+          mainHeader="Net Profit"
+          value={12650}
+          unit="LKR"
+          stats="+ LKR 1543"
+          percentage="12.2% ↑"
+        />
+        <Dashboardcard
+          icon={<IoCashOutline className="text-primarytext text-3xl" />}
+          mainHeader="Net Profit"
+          value={12650}
+          unit="LKR"
+          stats="+ LKR 1543"
+          percentage="12.2% ↑"
         />
         <Dashboardcard
           icon={<IoCashOutline className="text-primarytext text-3xl" />}
