@@ -6,12 +6,12 @@ interface InputProps {
 
 const Input = ({ name, type, lable }: InputProps) => {
   return (
-    <div className="flex flex-col items-start gap-1.5">
+    <div className="flex w-full flex-col items-start gap-1.5">
       <label className="text-sm md:text-base">{lable}</label>
       <input
         type={type}
         name={name}
-        className="h-10 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow sm:w-72 md:w-80 md:text-base lg:w-86"
+        className="h-11 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow sm:w-72 md:w-80 md:text-base lg:w-86"
       />
     </div>
   );

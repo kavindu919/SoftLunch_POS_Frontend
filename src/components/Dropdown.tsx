@@ -15,7 +15,7 @@ const Dropdown = ({ title, element }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="text-primarytext relative w-full max-w-48 text-sm">
+    <div className="text-primarytext relative w-auto text-sm">
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
