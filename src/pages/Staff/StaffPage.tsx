@@ -1,71 +1,92 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import Dropdown from "../../components/Dropdown";
 import { useState } from "react";
-import { IoIosClose } from "react-icons/io";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 import Input from "../../components/Input";
 
 const StaffPage = () => {
-  const [showAddStaff, setShowAddStaff] = useState<boolean>(false);
+  const [showAddStaff, setShowAddStaff] = useState<boolean>(true);
   return (
     <div>
       {/* Filter Section */}
-      <section className="filter-header">
+      <section className="filter-header flex flex-wrap items-center gap-4">
+        {/* Select Role */}
         <Dropdown
-          title="Select Role"
-          element={[
-            { text: "Admin", value: "admin" },
-            { text: "Cashier", value: "cashier" },
-            { text: "Manager", value: "manager" },
-            { text: "Supervisor", value: "supervisor" },
-            { text: "Accountant", value: "accountant" },
+          title=""
+          label="Select Role"
+          name="role"
+          id="role"
+          options={[
+            { value: "admin", label: "Admin" },
+            { value: "cashier", label: "Cashier" },
+            { value: "manager", label: "Manager" },
+            { value: "supervisor", label: "Supervisor" },
+            { value: "accountant", label: "Accountant" },
           ]}
         />
 
+        {/* Filter by Department */}
         <Dropdown
-          title="Filter by Department"
-          element={[
-            { text: "Sales", value: "sales" },
-            { text: "Marketing", value: "marketing" },
-            { text: "Human Resources", value: "hr" },
-            { text: "IT", value: "it" },
-            { text: "Finance", value: "finance" },
+          title=""
+          label="Filter by Department"
+          name="department"
+          id="department"
+          options={[
+            { value: "sales", label: "Sales" },
+            { value: "marketing", label: "Marketing" },
+            { value: "hr", label: "Human Resources" },
+            { value: "it", label: "IT" },
+            { value: "finance", label: "Finance" },
           ]}
         />
 
+        {/* Sort by Status */}
         <Dropdown
-          title="Sort by Status"
-          element={[
-            { text: "Active", value: "active" },
-            { text: "On Leave", value: "on_leave" },
-            { text: "Terminated", value: "terminated" },
-            { text: "Probation", value: "probation" },
-            { text: "Contract", value: "contract" },
+          title=""
+          label="Sort by Status"
+          name="status"
+          id="status"
+          options={[
+            { value: "active", label: "Active" },
+            { value: "on_leave", label: "On Leave" },
+            { value: "terminated", label: "Terminated" },
+            { value: "probation", label: "Probation" },
+            { value: "contract", label: "Contract" },
           ]}
         />
 
+        {/* Select Location */}
         <Dropdown
-          title="Select Location"
-          element={[
-            { text: "Head Office", value: "ho" },
-            { text: "Colombo Branch", value: "colombo_br" },
-            { text: "Kandy Branch", value: "kandy_br" },
-            { text: "Galle Branch", value: "galle_br" },
-            { text: "Jaffna Branch", value: "jaffna_br" },
+          title=""
+          label="Sort by Location"
+          name="location"
+          id="location"
+          options={[
+            { value: "ho", label: "Head Office" },
+            { value: "colombo_br", label: "Colombo Branch" },
+            { value: "kandy_br", label: "Kandy Branch" },
+            { value: "galle_br", label: "Galle Branch" },
+            { value: "jaffna_br", label: "Jaffna Branch" },
           ]}
         />
 
+        {/* Filter by Shift */}
         <Dropdown
-          title="Filter by Shift"
-          element={[
-            { text: "Morning (8am - 4pm)", value: "morning_shift" },
-            { text: "Evening (4pm - 12am)", value: "evening_shift" },
-            { text: "Night (12am - 8am)", value: "night_shift" },
-            { text: "Flexible", value: "flexible_shift" },
+          title=""
+          label="Filter by Shift"
+          name="shift"
+          id="shift"
+          options={[
+            { value: "morning_shift", label: "Morning (8am - 4pm)" },
+            { value: "evening_shift", label: "Evening (4pm - 12am)" },
+            { value: "night_shift", label: "Night (12am - 8am)" },
+            { value: "flexible_shift", label: "Flexible" },
           ]}
         />
 
+        {/* Add Staff Button */}
         <button
-          className="bg-shade text-primarytext flex h-10 w-auto cursor-pointer flex-row items-center justify-center gap-2 truncate rounded-full px-4 py-2 text-left text-sm sm:text-base"
+          className="bg-shade text-primarytext flex h-10 w-auto cursor-pointer flex-row items-center justify-center gap-2 truncate rounded-full px-4 py-2 text-sm sm:text-base"
           onClick={() => setShowAddStaff(true)}
         >
           <AiOutlinePlus />
@@ -118,81 +139,85 @@ const StaffPage = () => {
       {showAddStaff && (
         <div className="popup-backdrop">
           <div className="popup">
-            <div className="mb-2 flex flex-row items-center justify-between border-b-2 border-gray-200 pb-2">
-              <div>
-                <h3 className="text-primarytext text-sm font-normal sm:text-base md:text-lg">
-                  Title
-                </h3>
-              </div>
-
-              <button
-                className="cursor-pointer"
+            <div className="flex flex-row items-center justify-between">
+              <h3 className="mb-5 text-4xl text-[1.3rem] font-bold">Title</h3>
+              <IoMdCloseCircleOutline
+                className="cursor-pointer text-3xl"
                 onClick={() => setShowAddStaff(false)}
-              >
-                <IoIosClose className="text-3xl" />
-              </button>
+              />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-2">
-                <Input name={"name"} type="text" lable="Name" />
-                <Input name={"phone"} type="text" lable="Phone Number" />
+            <form className="flex flex-col gap-5">
+              <section className="flex flex-row gap-5">
+                <div className="relative flex flex-col gap-1.5">
+                  <Input name={"name"} type="text" lable="Name" />
+                  <Input name={"phone"} type="text" lable="Phone Number" />
 
-                <div className="flex w-full flex-col gap-1.5">
-                  <label className="text-sm md:text-base">Select Gender</label>
-                  <Dropdown
-                    title="gender"
-                    element={[
-                      { text: "Male", value: "male" },
-                      { text: "Female", value: "female" },
-                    ]}
-                  />
-                </div>
-                <Input name={"address"} type="text" lable="Address" />
+                  <div className="relative">
+                    <Dropdown
+                      title="Gender"
+                      label="Select Gender"
+                      name="gender"
+                      id="gender"
+                      options={[
+                        { value: "male", label: "Male" },
+                        { value: "female", label: "Female" },
+                      ]}
+                    />
+                  </div>
 
-                <div className="flex w-full flex-col gap-1.5">
-                  <label className="text-sm md:text-base">
-                    Select Location
-                  </label>
+                  <Input name={"address"} type="text" lable="Address" />
+
                   <Dropdown
-                    title="Select Location"
-                    element={[
-                      { text: "Head Office", value: "ho" },
-                      { text: "Colombo Branch", value: "colombo_br" },
-                      { text: "Kandy Branch", value: "kandy_br" },
-                      { text: "Galle Branch", value: "galle_br" },
-                      { text: "Jaffna Branch", value: "jaffna_br" },
+                    title="Location"
+                    label="Select Location"
+                    name="location"
+                    id="location"
+                    options={[
+                      { value: "Head Office", label: "ho" },
+                      { value: "Colombo Branch", label: "colombo_br" },
+                      { value: "Kandy Branch", label: "kandy_br" },
+                      { value: "Galle Branch", label: "galle_br" },
+                      { value: "Jaffna Branch", label: "jaffna_br" },
                     ]}
                   />
+
+                  <Input name={"password"} type="password" lable="Password" />
                 </div>
-                <Input name={"password"} type="password" lable="Password" />
-              </div>
-              <div className="flex flex-col gap-2">
-                <Input name={"email"} type="email" lable="Email" />
-                <Input name={"nic"} type="text" lable="NIC" />
-                <Input name={"birthdate"} type="date" lable="Birthdate" />
-                <div className="flex w-full flex-col gap-1.5">
-                  <label className="text-sm md:text-base">Select Role</label>
+                <div className="relative flex flex-col gap-1.5">
+                  <Input name={"email"} type="email" lable="Email" />
+                  <Input name={"nic"} type="text" lable="NIC" />
+                  <Input name={"birthdate"} type="date" lable="Birthdate" />
+
                   <Dropdown
-                    title="Select Role"
-                    element={[
-                      { text: "Admin", value: "admin" },
-                      { text: "Cashier", value: "cashier" },
-                      { text: "Manager", value: "manager" },
-                      { text: "Supervisr", value: "supervisor" },
-                      { text: "Accountant", value: "accountant" },
+                    title="Role"
+                    label="Select Role"
+                    name="role"
+                    id="role"
+                    options={[
+                      { value: "Admin", label: "admin" },
+                      { value: "Cashier", label: "cashier" },
+                      { value: "Manager", label: "manager" },
+                      { value: "Supervisr", label: "supervisor" },
+                      { value: "Accountant", label: "accountant" },
                     ]}
                   />
+
+                  <Input
+                    name={"confrim_password"}
+                    type="password"
+                    lable="Confrim Password"
+                  />
                 </div>
-                <Input
-                  name={"confrim_password"}
-                  type="password"
-                  lable="Confrim Password"
-                />
-              </div>
-            </div>
-            <div className="mt-2.5 flex flex-row justify-end">
-              <button className="button">Add Staff</button>
-            </div>
+              </section>
+              <section>
+                <button
+                  type="submit"
+                  className="bg-primarytext h-12 w-full cursor-pointer rounded-xl border-none text-sm font-bold text-white outline-none"
+                >
+                  Submit
+                </button>
+              </section>
+            </form>
           </div>
         </div>
       )}

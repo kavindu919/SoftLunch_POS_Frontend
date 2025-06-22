@@ -11,7 +11,7 @@ const Input = ({ name, type, lable }: InputProps) => {
       <input
         type={type}
         name={name}
-        className="h-11 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow sm:w-72 md:w-80 md:text-base lg:w-86"
+        className="focus:border-primarytext bg-shade h-11 w-full rounded-lg border-solid px-3 py-4 text-sm focus:border-2 focus:bg-transparent sm:w-72 md:w-80 md:text-base lg:w-86"
       />
     </div>
   );

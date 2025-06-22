@@ -36,11 +36,13 @@ html, body, #root {
 }
 
 .popup-backdrop {
-  @apply fixed inset-0 z-40 flex items-center justify-center bg-black/20 backdrop-blur-sm;
+  @apply fixed inset-0 z-40 flex items-center justify-center bg-black/50 ;
 }
 .popup {
-  @apply absolute top-1/2 left-1/2 z-50 h-auto w-auto max-w-4xl -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white p-6 shadow;
+  @apply absolute top-1/2 left-1/2 w-fit -translate-x-1/2 -translate-y-1/2 rounded-[20px] bg-white p-8 shadow;
 }
+
+
 .button {
   @apply text-primarytext hover:bg-theme cursor-pointer rounded-xl bg-white px-4 py-2 text-base font-medium shadow transition duration-200 hover:text-white focus:ring-2 focus:ring-gray-200 focus:outline-none active:scale-95;
 }
