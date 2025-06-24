@@ -4,11 +4,12 @@ import { BsBoxSeam } from "react-icons/bs";
 import { GoPeople } from "react-icons/go";
 import { IoCashOutline } from "react-icons/io5";
 import DashboardChart from "../components/Dashboardchart";
+import Topselling from "../components/Topselling";
 
 const DashboardPage = () => {
   return (
     <>
-      <article className="flex flex-row gap-4">
+      <article className="flex flex-row justify-start gap-3">
         <Dashboardcard
           icon={<IoTrendingUpOutline className="text-primarytext text-3xl" />}
           mainHeader="Total Sales Amount"
@@ -41,9 +42,27 @@ const DashboardPage = () => {
           stats="+ LKR 1543"
           percentage="12.2% ↑"
         />
+        <Dashboardcard
+          icon={<IoCashOutline className="text-primarytext text-3xl" />}
+          mainHeader="Net Profit"
+          value={12650}
+          unit="LKR"
+          stats="+ LKR 1543"
+          percentage="12.2% ↑"
+        />
+        <Dashboardcard
+          icon={<IoCashOutline className="text-primarytext text-3xl" />}
+          mainHeader="Net Profit"
+          value={12650}
+          unit="LKR"
+          stats="+ LKR 1543"
+          percentage="12.2% ↑"
+        />
       </article>
-
-      <DashboardChart />
+      <div className="mt-5 flex w-full flex-row justify-between gap-3">
+        <DashboardChart />
+        <Topselling />
+      </div>
     </>
   );
 };

@@ -83,15 +83,22 @@ const DashboardChart = () => {
   }, []);
 
   return (
-    <div className="rounded-xl bg-white shadow-lg">
+    <div className="w-2/3 rounded-xl bg-white shadow-lg">
       <header className="flex w-full flex-row items-center justify-between p-5">
-        <h3 className="text-primarytext text-base font-semibold sm:text-lg">
+        <h2 className="text-primarytext text-lg sm:text-xl md:text-2xl">
           Financial Flow
-        </h3>
-        <Dropdown />
+        </h2>
+        <Dropdown
+          title="Filter by Time"
+          element={[
+            { text: "Day", value: "day" },
+            { text: "Month", value: "month" },
+            { text: "Year", value: "year" },
+          ]}
+        />
       </header>
 
-      <div ref={chartRef} className="h-[400px] w-full" />
+      <div ref={chartRef} className="h-[400px]" />
     </div>
   );
 };
