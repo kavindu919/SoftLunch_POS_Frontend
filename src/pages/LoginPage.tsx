@@ -32,8 +32,7 @@ const LoginPage = () => {
       setLoading(false);
     } catch (error) {
       toast.error("Something went wrong please try again later");
-    } finally {
-      setLoading(false);
+      console.log(error);
     }
   };
 

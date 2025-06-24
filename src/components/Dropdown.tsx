@@ -5,7 +5,7 @@ interface Option {
   label: string;
 }
 
-interface DropdownProps {
+interface DropdownProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label: string;
   title: string;
   name: string;
@@ -23,6 +23,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   options,
   defaultValue = "",
   className = "",
+  ...rest
 }) => {
   return (
     <div className={`relative ${className}`}>
@@ -35,6 +36,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           id={id}
           className="bg-shade focus:border-primarytext h-12 w-full cursor-pointer appearance-none rounded-lg px-3 py-2 pr-10 text-sm focus:bg-white focus:ring-2 focus:outline-none md:text-base"
           defaultValue={defaultValue}
+          {...rest}
         >
           <option value="" disabled>
             {label}
