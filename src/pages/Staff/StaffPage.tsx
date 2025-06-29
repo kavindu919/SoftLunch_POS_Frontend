@@ -1,14 +1,23 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import Dropdown from "../../components/Dropdown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import Input from "../../components/Input";
 import api from "../../utils/api";
 import toast from "react-hot-toast";
+import { VscEdit } from "react-icons/vsc";
+import { AiOutlineDelete } from "react-icons/ai";
+import EditStaff from "./EditStaff";
+import type { StaffPageProps } from "../../lib/types/staff";
 
 const StaffPage = () => {
   const [showAddStaff, setShowAddStaff] = useState<boolean>(false);
+  const [showEditStaff, setShowEditStaff] = useState<boolean>(false);
+  const [selectedStaff, setSelectedStaff] = useState<StaffPageProps | null>(
+    null,
+  );
   const [value, setValue] = useState({
+    id: "",
     name: "",
     email: "",
     phone: "",
@@ -21,6 +30,8 @@ const StaffPage = () => {
     password: "",
     password_confirmation: "",
   });
+  const [loading, setLoading] = useState<boolean>(false);
+  const [data, setData] = useState<StaffPageProps[]>([]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -31,8 +42,27 @@ const StaffPage = () => {
     });
   };
 
+  //fetchdata
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await api("staff/getstaff");
+      if (response.data.status === true) {
+        setData(response.data.data);
+      } else if (response.data.status === false) {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("Something went wrong, please try again!");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  //add staff
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await api.post("staff/addstaff", {
         name: value.name,
@@ -53,6 +83,7 @@ const StaffPage = () => {
       } else if (response.data.status === false) {
         toast.error(response.data.message);
       }
+      setLoading(false);
     } catch (error: any) {
       if (error.response && error.response.status === 422) {
         const validationErrors = error.response.data.errors;
@@ -64,6 +95,7 @@ const StaffPage = () => {
       }
     } finally {
       setValue({
+        id: "",
         name: "",
         email: "",
         phone: "",
@@ -76,9 +108,15 @@ const StaffPage = () => {
         password: "",
         password_confirmation: "",
       });
+      setLoading(false);
+      fetchData();
     }
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+  console.log(value);
   return (
     <div>
       {/* Filter Section */}
@@ -179,35 +217,64 @@ const StaffPage = () => {
                 <span className="table-header-span">#</span>
               </th>
               <th className="table-header">
-                <span className="table-header-span">Date & Time</span>
+                <span className="table-header-span">Registerd Date</span>
               </th>
               <th className="table-header">
                 <span className="table-header-span">Customer Name</span>
               </th>
               <th className="table-header">
-                <span className="table-header-span">Status</span>
+                <span className="table-header-span">Email</span>
+              </th>
+              <th className="table-header">
+                <span className="table-header-span">Role</span>
+              </th>
+              <th className="table-header">
+                <span className="table-header-span">Branch</span>
+              </th>
+              <th className="table-header">
+                <span className="table-header-span">Action</span>
               </th>
             </tr>
           </thead>
+
           <tbody>
-            <tr className="border-shade border-b">
-              <td className="table-data-span">1</td>
-              <td className="table-data-span">2025-06-11 10:30 AM</td>
-              <td className="table-data-span">Kavindu Perera</td>
-              <td className="table-data-span">Active</td>
-            </tr>
-            <tr className="border-shade border-b">
-              <td className="table-data-span">2</td>
-              <td className="table-data-span">2025-06-10 2:45 PM</td>
-              <td className="table-data-span">Nimesha Silva</td>
-              <td className="table-data-span">On Leave</td>
-            </tr>
-            <tr className="border-shade border-b">
-              <td className="table-data-span">3</td>
-              <td className="table-data-span">2025-06-09 9:15 AM</td>
-              <td className="table-data-span">Janith Fernando</td>
-              <td className="table-data-span">Probation</td>
-            </tr>
+            {data.map((data, index) => (
+              <tr className="border-shade border-b" key={index}>
+                <td className="table-data-span">{data.id}</td>
+                <td className="table-data-span">
+                  {data.created_at?.slice(0, 10)}
+                </td>
+                <td className="table-data-span">{data.name}</td>
+                <td className="table-data-span">{data.email}</td>
+                <td className="table-data-span">{data.role}</td>
+                <td className="table-data-span">{data.location}</td>
+                <td className="table-data-span">
+                  <div className="flex flex-row items-center justify-center gap-2">
+                    <button
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setShowEditStaff(true);
+                        setSelectedStaff({
+                          id: data.id,
+                          name: data.name,
+                          email: data.email,
+                          phone: data.phone,
+                          nic: data.nic,
+                          gender: data.gender,
+                          birthday: data.birthday,
+                          address: data.address,
+                          role: data.role,
+                          location: data.location,
+                        });
+                      }}
+                    >
+                      <VscEdit />
+                    </button>
+                    <AiOutlineDelete />
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </section>
@@ -338,14 +405,43 @@ const StaffPage = () => {
               <section>
                 <button
                   type="submit"
-                  className="bg-primarytext h-12 w-full cursor-pointer rounded-xl border-none text-sm font-bold text-white outline-none"
+                  className={`bg-primarytext h-12 w-full rounded-xl border-none text-sm font-bold text-white outline-none ${loading ? "cursor-not-allowed opacity-60" : "cursor-pointer"}`}
+                  disabled={loading}
                 >
-                  Submit
+                  {loading ? (
+                    <span className="flex items-center justify-center">
+                      <svg
+                        className="mr-2 h-5 w-5 animate-spin"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 4v4m0 8v4m8-8h-4m-8 0H4"
+                        />
+                      </svg>
+                      Submitting...
+                    </span>
+                  ) : (
+                    <span>Submit</span>
+                  )}
                 </button>
               </section>
             </form>
           </div>
         </div>
+      )}
+      {selectedStaff && (
+        <EditStaff
+          data={selectedStaff}
+          showEditStaff={showEditStaff}
+          setshowEditStaff={setShowEditStaff}
+          setSelectedStaff={setSelectedStaff}
+        />
       )}
     </div>
   );
