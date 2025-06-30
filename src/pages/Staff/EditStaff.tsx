@@ -11,6 +11,7 @@ interface EditStaffProps {
   showEditStaff: boolean;
   setshowEditStaff: (value: boolean) => void;
   setSelectedStaff: React.Dispatch<React.SetStateAction<StaffPageProps | null>>;
+  fetchData: () => void;
 }
 
 const EditStaff: React.FC<EditStaffProps> = ({
@@ -18,6 +19,7 @@ const EditStaff: React.FC<EditStaffProps> = ({
   showEditStaff,
   setshowEditStaff,
   setSelectedStaff,
+  fetchData,
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [value, setValue] = useState({
@@ -64,6 +66,7 @@ const EditStaff: React.FC<EditStaffProps> = ({
       } else if (response.data.status === false) {
         toast.error(response.data.message);
       }
+      fetchData();
     } catch (error: any) {
       if (error.response && error.response.status === 422) {
         const validationErrors = error.response.data.errors;
@@ -76,18 +79,6 @@ const EditStaff: React.FC<EditStaffProps> = ({
     } finally {
       setLoading(false);
       setshowEditStaff(false);
-      setValue({
-        id: "",
-        name: "",
-        email: "",
-        phone: "",
-        nic: "",
-        gender: "",
-        birthday: "",
-        address: "",
-        role: "",
-        location: "",
-      });
     }
   };
 
@@ -122,7 +113,7 @@ const EditStaff: React.FC<EditStaffProps> = ({
                   name={"phone"}
                   value={value.phone}
                   type="text"
-                  label="Phone Number"
+                  label="phone Number"
                   onChange={handleChange}
                   required
                 />

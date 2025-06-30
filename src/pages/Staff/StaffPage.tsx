@@ -83,17 +83,6 @@ const StaffPage = () => {
       } else if (response.data.status === false) {
         toast.error(response.data.message);
       }
-      setLoading(false);
-    } catch (error: any) {
-      if (error.response && error.response.status === 422) {
-        const validationErrors = error.response.data.errors;
-        Object.keys(validationErrors).forEach((field) => {
-          toast.error(validationErrors[field][0]);
-        });
-      } else {
-        toast.error("Something went wrong, please try again!");
-      }
-    } finally {
       setValue({
         id: "",
         name: "",
@@ -108,6 +97,16 @@ const StaffPage = () => {
         password: "",
         password_confirmation: "",
       });
+    } catch (error: any) {
+      if (error.response && error.response.status === 422) {
+        const validationErrors = error.response.data.errors;
+        Object.keys(validationErrors).forEach((field) => {
+          toast.error(validationErrors[field][0]);
+        });
+      } else {
+        toast.error("Something went wrong, please try again!");
+      }
+    } finally {
       setLoading(false);
       fetchData();
     }
@@ -116,7 +115,7 @@ const StaffPage = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(value);
+
   return (
     <div>
       {/* Filter Section */}
@@ -283,7 +282,9 @@ const StaffPage = () => {
         <div className="popup-backdrop">
           <div className="popup">
             <div className="flex flex-row items-center justify-between">
-              <h3 className="mb-5 text-4xl text-[1.3rem] font-bold">Title</h3>
+              <h3 className="mb-5 text-4xl text-[1.3rem] font-bold">
+                Add Staff
+              </h3>
               <IoMdCloseCircleOutline
                 className="cursor-pointer text-3xl"
                 onClick={() => setShowAddStaff(false)}
@@ -441,6 +442,7 @@ const StaffPage = () => {
           showEditStaff={showEditStaff}
           setshowEditStaff={setShowEditStaff}
           setSelectedStaff={setSelectedStaff}
+          fetchData={fetchData}
         />
       )}
     </div>
