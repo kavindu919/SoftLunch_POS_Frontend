@@ -9,6 +9,7 @@ import type { StaffPageProps } from "../../lib/types/staff";
 import DeleteStaff from "./DeleteStaff";
 import AddStaff from "./AddStaff";
 import Searchbar from "../../components/Searchbar";
+import Pagination from "../../components/Pagination";
 
 const StaffPage = () => {
   const [showAddStaff, setShowAddStaff] = useState<boolean>(false);
@@ -30,6 +31,16 @@ const StaffPage = () => {
     shift: "",
   });
   const [nlQuery, setNlQuery] = useState<string>("");
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    perPage: 10,
+    total: 0,
+    lastPage: 1,
+  });
+
+  const handlePageChange = (page: number) => {
+    setPagination((prev) => ({ ...prev, currentPage: page }));
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilter({
@@ -64,9 +75,18 @@ const StaffPage = () => {
         status: filter.status,
         location: filter.location,
         shift: filter.shift,
+        page: pagination.currentPage,
+        per_page: pagination.perPage,
       });
+
       if (response.data.status === true) {
-        setData(response.data.data);
+        setData(response.data.data.data);
+        setPagination((prev) => ({
+          ...prev,
+          total: response.data.data.total,
+          lastPage: response.data.data.last_page,
+          currentPage: response.data.data.current_page,
+        }));
       } else if (response.data.status === false) {
         toast.error(response.data.message);
       }
@@ -79,7 +99,7 @@ const StaffPage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [filter]);
+  }, [filter, pagination.currentPage, pagination.perPage]);
 
   return (
     <div>
@@ -302,6 +322,16 @@ const StaffPage = () => {
             </tbody>
           )}
         </table>
+        {data.length != 0 && (
+          <div className="mt-4 flex flex-col items-center justify-center">
+            {/* Pagination component */}
+            <Pagination
+              currentPage={pagination.currentPage}
+              lastPage={pagination.lastPage}
+              onPageChange={handlePageChange}
+            />
+          </div>
+        )}
       </section>
 
       {showAddStaff && (
