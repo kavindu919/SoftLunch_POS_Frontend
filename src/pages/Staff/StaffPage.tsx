@@ -104,7 +104,7 @@ const StaffPage = () => {
   return (
     <div>
       {/* Filter Section */}
-      <div className="filter-header flex flex-row items-center justify-between">
+      <div className="filter-header">
         <section className="flex flex-wrap items-center gap-4">
           {/* Select Role */}
           <Dropdown
