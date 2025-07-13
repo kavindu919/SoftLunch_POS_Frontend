@@ -5,9 +5,10 @@ import { RiCloseCircleLine } from "react-icons/ri";
 interface FileUplodProps {
   setFilechange: (files: File[]) => void;
   filechange: File[];
+  accept: string;
 }
 
-const FileUpload = ({ setFilechange, filechange }: FileUplodProps) => {
+const FileUpload = ({ setFilechange, filechange, ...rest }: FileUplodProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isSetFile, setIsSetFile] = useState<boolean>(false);
@@ -103,6 +104,7 @@ const FileUpload = ({ setFilechange, filechange }: FileUplodProps) => {
               onChange={handleFileChange}
               className="hidden"
               multiple
+              {...rest}
             />
           </div>
         )}

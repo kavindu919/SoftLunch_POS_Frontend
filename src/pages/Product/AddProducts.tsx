@@ -2,26 +2,24 @@ import React, { useState } from "react";
 import type { ProductProps } from "../../lib/types/product";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import Input from "../../components/Input";
+import Textarea from "../../components/Textarea";
 import Dropdown from "../../components/Dropdown";
 import api from "../../utils/api";
 import toast from "react-hot-toast";
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw } from "draft-js";
-import draftToHtml from "draftjs-to-html";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
 import FileUpload from "../../components/FileUpload";
 
 interface AddProductsProps {
   setIsAddProductOpen: (value: boolean) => void;
   setLoading: (value: boolean) => void;
   loading: boolean;
+  fetchData: () => void;
 }
 
 const AddProducts = ({
   setIsAddProductOpen,
   setLoading,
   loading,
+  fetchData,
 }: AddProductsProps) => {
   const [addProducs, setAddProducts] = useState<ProductProps>({
     name: "",
@@ -35,17 +33,15 @@ const AddProducts = ({
     image: [],
     is_active: true,
   });
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
   const [filechange, setFilechange] = useState<File[]>([]);
 
   const [step, setStep] = useState<number>(1);
 
-  const prevstep = () => setStep((prev) => prev - 1);
-
-  const formData = new FormData();
-
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => {
     setAddProducts({
       ...addProducs,
@@ -56,11 +52,8 @@ const AddProducts = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    const formData = new FormData();
     try {
-      const htmlDescription = draftToHtml(
-        convertToRaw(editorState.getCurrentContent()),
-      );
-
       formData.append("name", addProducs.name);
       formData.append("sku", addProducs.sku);
       formData.append("price", addProducs.price.toString());
@@ -69,16 +62,33 @@ const AddProducts = ({
       formData.append("discount", addProducs.discount.toString());
       formData.append("quantity", addProducs.quantity.toString());
       formData.append("is_active", addProducs.is_active ? "1" : "0");
-      formData.append("description", htmlDescription);
+      formData.append("description", addProducs.description);
 
-      filechange.forEach((file) => {
-        formData.append("image[]", file);
+      filechange.forEach((file, index) => {
+        formData.append(`image[${index}]`, file);
       });
 
-      const res = await api.post("product/addproduct", formData);
+      const res = await api.post("product/addproduct", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       if (res.data.status == true) {
         toast.success(res.data.message);
       }
+      setAddProducts({
+        name: "",
+        sku: "",
+        description: "",
+        price: 0,
+        cost: 0,
+        tax_rate: 0,
+        discount: 0,
+        quantity: 0,
+        image: [],
+        is_active: true,
+      });
+      fetchData();
     } catch (error: any) {
       if (error.response && error.response.status === 422) {
         const validationErrors = error.response.data.errors;
@@ -92,7 +102,7 @@ const AddProducts = ({
       setLoading(false);
     }
   };
-  console.log(addProducs);
+
   return (
     <div className="popup-backdrop">
       <div className="popup">
@@ -102,7 +112,21 @@ const AddProducts = ({
           </h3>
           <IoMdCloseCircleOutline
             className="cursor-pointer text-3xl"
-            onClick={() => setIsAddProductOpen(false)}
+            onClick={() => {
+              setIsAddProductOpen(false);
+              setAddProducts({
+                name: "",
+                sku: "",
+                description: "",
+                price: 0,
+                cost: 0,
+                tax_rate: 0,
+                discount: 0,
+                quantity: 0,
+                image: [],
+                is_active: true,
+              });
+            }}
           />
         </div>
         <div className="mb-5 flex w-fit items-center gap-4">
@@ -219,16 +243,15 @@ const AddProducts = ({
               <FileUpload
                 setFilechange={setFilechange}
                 filechange={filechange}
+                accept="image/jpeg, image/png, image/jpg, image/webp"
               />
             )}
             {step === 2 && (
-              <Editor
-                editorState={editorState}
-                onEditorStateChange={setEditorState}
-                toolbarClassName=""
-                wrapperClassName="w-full sm:w-[36rem] md:w-[40rem] lg:w-[44rem] border border-solid border-gray-300 rounded-lg bg-shade focus-within:border-primarytext"
-                editorClassName="min-h-[150px] px-3 py-2 text-sm md:text-base focus:outline-none"
-                placeholder="Enter product description..."
+              <Textarea
+                name="description"
+                label="Description"
+                value={addProducs.description}
+                onChange={handleChange}
               />
             )}
           </section>
